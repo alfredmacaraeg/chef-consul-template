@@ -255,5 +255,5 @@ default['consul_template']['checksums'] = {
   'consul-template_0.15.0_openbsd_amd64' => 'f510571a47f42a03e6de7caa1f477673ea8e58764b17849dc7103ecca2aa63d9',
   'consul-template_0.15.0_solaris_amd64' => '092b339a1e3487b979caa26aa276a91a4b5f7c964971bc9793f07154ad44ddf7',
   'consul-template_0.15.0_windows_386' => '7959b7624eef71fcac531bfa908c245d26ba8363bf61f19b4e027e649791dfd9',
-  'consul-template_0.15.0_windows_amd64' => '40ff124f91b5ec1405621c0b72e26e2877b40a6217770488464b8e97015f1648',
+  'consul-template_0.15.0_windows_amd64' => '40ff124f91b5ec1405621c0b72e26e2877b40a6217770488464b8e97015f1648'
 }

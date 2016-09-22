@@ -1,11 +1,13 @@
 require 'spec_helper'
+require 'fauxhai'
 
 describe 'consul-template::install_source' do
-  let(:chef_run) { ChefSpec::SoloRunner.new(file_cache_path: '/var/chef/cache').converge(described_recipe) }
-
-  before do
-    stub_command("/usr/local/go/bin/go version | grep \"go1.5 \"").and_return('1.5')
-  end
+    cached(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.1.1503') do |node|
+        Chef::Config[:client_key] = "/etc/chef/client.pem"
+        stub_command("/usr/local/go/bin/go version | grep \"go1.2.2 \"").and_return('derp')
+      end.converge(described_recipe)
+    end
 
   it 'should include golang::default' do
     expect(chef_run).to include_recipe('golang::default')

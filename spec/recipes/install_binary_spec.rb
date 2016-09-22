@@ -1,11 +1,13 @@
 require 'spec_helper'
+require 'fauxhai'
 
 describe 'consul-template::install_binary' do
-  let(:chef_run) do
-    ChefSpec::SoloRunner.new(file_cache_path: '/var/chef/cache')
-                        .converge('consul-template::default')
-  end
-  let(:consul_template_zip) { "consul-template_#{chef_run.node['consul_template']['version']}_linux_amd64.zip" }
+    cached(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.1.1503') do |node|
+        Chef::Config[:client_key] = "/etc/chef/client.pem"
+      end.converge(described_recipe)
+    end
+      let(:consul_template_zip) { "consul-template_#{chef_run.node['consul_template']['version']}_linux_amd64.zip" }
 
   it 'includes libarchive::default' do
     expect(chef_run).to include_recipe('libarchive::default')

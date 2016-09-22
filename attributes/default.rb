@@ -1,6 +1,7 @@
 #
 # attributes::default
 #
+normal['consul']['https_api_port'] = 8500
 
 default['consul_template']['base_url'] = 'https://releases.hashicorp.com/consul-template/'
 default['consul_template']['version'] = '0.15.0'
@@ -20,20 +21,20 @@ default['consul_template']['config_dir'] = if node['platform'] == 'windows'
                                            else
                                              '/etc/consul-template.d'
                                            end
-default['consul_template']['init_style'] = platform?("ubuntu") ? 'upstart' : 'init' # 'init', 'runit', 'systemd', 'upstart'
+default['consul_template']['init_style'] = platform?('ubuntu') ? 'upstart' : 'init' # 'init', 'runit', 'systemd', 'upstart'
 default['consul_template']['service_user'] = 'consul-template'
 default['consul_template']['service_group'] = 'consul-template'
 default['consul_template']['template_mode'] = 0600
 
 # Config attributes
-default['consul_template']['config'] = Hash.new
+default['consul_template']['config'] = {}
 
 # Windows only
-default['consul_template']['nssm_params'] = {
-  'AppDirectory'     => data_path,
-  'AppStdout'        => join_path(config_prefix_path, 'stdout.log'),
-  'AppStderr'        => join_path(config_prefix_path, 'error.log'),
-  'AppRotateFiles'   => 1,
-  'AppRotateOnline'  => 1,
-  'AppRotateBytes'   => 20_000_000
-}
+# default['consul_template']['nssm_params'] = {
+#  'AppDirectory'     => data_path,
+#  'AppStdout'        => join_path(config_prefix_path, 'stdout.log'),
+#  'AppStderr'        => join_path(config_prefix_path, 'error.log'),
+#  'AppRotateFiles'   => 1,
+#  'AppRotateOnline'  => 1,
+#  'AppRotateBytes'   => 20_000_000
+# }

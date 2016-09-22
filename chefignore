@@ -51,8 +51,12 @@ spec/*
 spec/fixtures/*
 test/*
 features/*
+examples/*
 Guardfile
 Procfile
+.kitchen*
+.rubocop.yml
+Jenkinsfile
 
 # SCM #
 #######
@@ -76,8 +80,9 @@ tmp
 
 # Cookbooks #
 #############
-CONTRIBUTING
+CONTRIBUTING*
 CHANGELOG*
+TESTING*
 
 # Strainer #
 ############
@@ -94,7 +99,3 @@ Vagrantfile
 # Travis #
 ##########
 .travis.yml
-
-# Scripts #
-###########
-scripts/*
