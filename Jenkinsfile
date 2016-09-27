@@ -1,8 +1,8 @@
 
 node {
    dest = ''
-   env.COOKBOOK_REPO = 'GannettDigital/chef-<%= cookbook_name %>'
-   env.COOKBOOK_NAME = '<%= cookbook_name %>'
+   env.COOKBOOK_REPO = 'GannettDigital/chef-consul-template'
+   env.COOKBOOK_NAME = 'consul_template'
    // IF you need to set additional environment vars for your build job
    // AND they are OK being in a github repo put them here
    // e.g. env.LINUX_INSTANCE_SIZE = 't2.small'
