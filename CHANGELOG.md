@@ -1,6 +1,9 @@
 Consul Template Cookbook Changelog
 ==================================
 
+# 1.0.0
+Alfred Macaraeg - initial release of GD consul-template cookbook
+
 ## v0.11.0 (June 21st, 2016)
 
 IMPROVEMENTS:

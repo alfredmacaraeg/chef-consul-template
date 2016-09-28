@@ -4,7 +4,7 @@ maintainer_email 'krone.adam@gmail.com'
 license          'Apache v2.0'
 description      'Installs/Configures consul-template'
 long_description 'Installs/Configures consul-template'
-version          '0.11.0'
+version          '1.0.0'
 
 supports 'centos', '>= 6.7'
 
