@@ -23,7 +23,7 @@ platforms:
   - name: gci-centos-72
     driver:
       image_id: <%= ENV['AWS_GCI_CENTOS7_AMI_ID'] %>
-      instance_type: <%%= ENV['LINUX_INSTANCE_SIZE'] %>
+      instance_type: <%= ENV['LINUX_INSTANCE_SIZE'] %>
       user_data: <%= ENV['LINUX_USER_DATA_PATH'] %>
     transport:
       username: <%= ENV['AWS_CENTOS7_USERNAME'] %>
