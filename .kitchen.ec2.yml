@@ -36,7 +36,6 @@ suites:
       - recipe[consul::default]
       - recipe[consul-template::default]
       - recipe[consul-template-spec::consul_template_config]
-    includes: ['gannett/gci-centos-72']
     attributes:
       consul:
         init_style: 'systemd'
