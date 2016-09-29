@@ -1,32 +1,32 @@
 driver:
   name: ec2
-  aws_ssh_key_id: <%%= ENV['AWS_SSH_KEY'] %>
-  security_group_ids:  <%%= ENV['AWS_SECURITY_GROUPS'] %>
-  region: <%%= ENV['AWS_REGION'] %>
-  availability_zone: <%%= ENV['AWS_AVAILABILITY_ZONE'] %>
+  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY'] %>
+  security_group_ids:  <%= ENV['AWS_SECURITY_GROUPS'] %>
+  region: <%= ENV['AWS_REGION'] %>
+  availability_zone: <%= ENV['AWS_AVAILABILITY_ZONE'] %>
   require_chef_omnibus: true
-  subnet_id: <%%= ENV['AWS_SUBNET'] %>
+  subnet_id: <%= ENV['AWS_SUBNET'] %>
   associate_public_ip: false
   interface: private
   tags:
-    OWNER: <%%= ENV['AWS_OWNER_TAG'] %>
-    Name: <%%= ENV['AWS_NAME_TAG'] %>
+    OWNER: <%= ENV['AWS_OWNER_TAG'] %>
+    Name: <%= ENV['AWS_NAME_TAG'] %>
 
 provisioner:
   name: chef_zero
-  log_level: <%%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
 
 transport:
-  ssh_key: ~/.ssh/<%%= ENV['AWS_SSH_KEY'] %>.pem
+  ssh_key: ~/.ssh/<%= ENV['AWS_SSH_KEY'] %>.pem
 
 platforms:
   - name: gci-centos-72
     driver:
-      image_id: <%%= ENV['AWS_GCI_CENTOS7_AMI_ID'] %>
-      instance_type: <%%= ENV['LINUX_INSTANCE_SIZE'] %>
-      user_data: <%%= ENV['LINUX_USER_DATA_PATH'] %>
+      image_id: <%= ENV['AWS_GCI_CENTOS7_AMI_ID'] %>
+      instance_type: <%= ENV['LINUX_INSTANCE_SIZE'] %>
+      user_data: <%= ENV['LINUX_USER_DATA_PATH'] %>
     transport:
-      username: <%%= ENV['AWS_CENTOS7_USERNAME'] %>
+      username: <%= ENV['AWS_CENTOS7_USERNAME'] %>
   - name: windows-2012r2
     driver:
       box: mwrock/Windows2012R2
