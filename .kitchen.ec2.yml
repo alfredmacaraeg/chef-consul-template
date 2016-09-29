@@ -20,13 +20,6 @@ transport:
   ssh_key: ~/.ssh/<%%= ENV['AWS_SSH_KEY'] %>.pem
 
 platforms:
-  - name: gci-centos-67
-    driver:
-      image_id: <%%= ENV['AWS_GCI_CENTOS6_AMI_ID'] %>
-      instance_type: <%%= ENV['LINUX_INSTANCE_SIZE'] %>
-      user_data: <%%= ENV['LINUX_USER_DATA_PATH'] %>
-    transport:
-      username: <%%= ENV['AWS_CENTOS6_USERNAME'] %>
   - name: gci-centos-72
     driver:
       image_id: <%%= ENV['AWS_GCI_CENTOS7_AMI_ID'] %>
@@ -34,6 +27,13 @@ platforms:
       user_data: <%%= ENV['LINUX_USER_DATA_PATH'] %>
     transport:
       username: <%%= ENV['AWS_CENTOS7_USERNAME'] %>
+  - name: windows-2012r2
+    driver:
+      box: mwrock/Windows2012R2
+      communicator: winrm
+      shell_type: powershell
+    provisioner:
+      require_chef_omnibus: true
 
 suites:
   - name: install_only
@@ -66,44 +66,6 @@ suites:
           bootstrap_expect: 1
           server: true
       consul_template:
-        config:
-          consul: '127.0.0.1:8500'
-  - name: source
-    run_list:
-      - recipe[gd-test-helper::default]
-      - recipe[apt::default]
-      - recipe[consul::default]
-      - recipe[consul-template::default]
-      - recipe[consul-template-spec::consul_template_config]
-    excludes: ['windows-2012r2']
-    attributes:
-      apt:
-        compile_time_update: true
-      consul:
-        config:
-          bootstrap_expect: 1
-          server: true
-      consul_template:
-        install_method: 'source'
-        config:
-          consul: '127.0.0.1:8500'
-  - name: runit
-    run_list:
-      - recipe[gd-test-helper::default]
-      - recipe[apt::default]
-      - recipe[consul::default]
-      - recipe[consul-template::default]
-      - recipe[consul-template-spec::consul_template_config]
-    excludes: ['windows-2012r2']
-    attributes:
-      apt:
-        compile_time_update: true
-      consul:
-        config:
-          bootstrap_expect: 1
-          server: true
-      consul_template:
-        init_style: 'runit'
         config:
           consul: '127.0.0.1:8500'
   - name: systemd
