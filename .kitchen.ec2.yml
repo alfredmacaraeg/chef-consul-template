@@ -20,53 +20,15 @@ transport:
   ssh_key: ~/.ssh/<%= ENV['AWS_SSH_KEY'] %>.pem
 
 platforms:
-  - name: gannett/gci-centos-72
-    data_bags_path: test/integration/data_bags
-    network:
-        - ["forwarded_port", {guest: 80, host: 8500}]
-  - name: windows-2012r2
+  - name: gci-centos-72
     driver:
-      box: mwrock/Windows2012R2
-      communicator: winrm
-      shell_type: powershell
-    provisioner:
-      require_chef_omnibus: true
+      image_id: <%= ENV['AWS_GCI_CENTOS7_AMI_ID'] %>
+      instance_type: <%%= ENV['LINUX_INSTANCE_SIZE'] %>
+      user_data: <%= ENV['LINUX_USER_DATA_PATH'] %>
+    transport:
+      username: <%= ENV['AWS_CENTOS7_USERNAME'] %>
 
 suites:
-  - name: install_only
-    data_bags_path: test/integration/data_bags
-    run_list:
-      - recipe[gd-test-helper::default]
-      - recipe[apt::default]
-      - recipe[consul::default]
-      - recipe[consul-template::install_binary]
-    excludes: ['windows-2012r2']
-    attributes:
-      apt:
-        compile_time_update: true
-      consul:
-        config:
-          bootstrap_expect: 1
-          server: true
-  - name: default
-    data_bags_path: test/integration/data_bags
-    run_list:
-      - recipe[gd-test-helper::default]
-      - recipe[apt::default]
-      - recipe[consul::default]
-      - recipe[consul-template::default]
-      - recipe[consul-template-spec::consul_template_config]
-    excludes: ['gannett/gci-centos-72', 'windows-2012r2']
-    attributes:
-      apt:
-        compile_time_update: true
-      consul:
-        config:
-          bootstrap_expect: 1
-          server: true
-      consul_template:
-        config:
-          consul: '127.0.0.1:8500'
   - name: systemd
     data_bags_path: test/integration/data_bags
     run_list:
@@ -83,21 +45,5 @@ suites:
           server: true
       consul_template:
         init_style: 'systemd'
-        config:
-          consul: '127.0.0.1:8500'
-  - name: windows
-    data_bags_path: test/integration/data_bags
-    run_list:
-      - recipe[gd-test-helper::default]
-      - recipe[consul::default]
-      - recipe[consul-template::default]
-      - recipe[consul-template-spec::consul_template_config_win]
-    includes: ['windows-2012r2']
-    attributes:
-      consul:
-        config:
-          bootstrap_expect: 1
-          server: true
-      consul_template:
         config:
           consul: '127.0.0.1:8500'

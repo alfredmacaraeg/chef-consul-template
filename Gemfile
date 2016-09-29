@@ -61,6 +61,7 @@ group :integration do
   gem 'faraday', '= 0.9.2'
   gem 'fauxhai', '= 3.5.0'
   gem 'ffi', '= 1.9.10'
+  gem 'ffi-libarchive', '= 0.2.0'
   gem 'ffi-rzmq', '= 2.0.4'
   gem 'ffi-rzmq-core', '= 1.0.5'
   gem 'ffi-yajl', '= 2.2.3'
